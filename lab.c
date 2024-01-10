@@ -109,18 +109,18 @@ void createPlanes(struct Plane planes[], char id[], int numberOfPlanes, int idWh
     }
 }
 
-void setAvailability(struct Plane* plane, bool availability)
+void setAvailability(struct Plane plane, bool availability)
 {
-    plane->isAvailable = availability;
+    plane.isAvailable = availability;
 }
 
-void getAvailablePlanes(struct Plane* planes[], int numberOfPlanes)
+void getAvailablePlanes(struct Plane planes[], int numberOfPlanes)
 {
     for (int i = 0; i < numberOfPlanes; i++)
     {
-        if (planes[i]->isAvailable)
+        if (planes[i].isAvailable)
         {
-            printf(planes[i]->id);
+            printf("%s", planes[i].id);
             printf("\n");
         }
         else
@@ -149,7 +149,7 @@ int main(int argc, char** argv) {
 
     /* Create plane - [4 points] */
     
-    char idPlane[10] = {};
+    char idPlane[10] = {0,0,0,0,0,0,0,0,0,1};
     int numberOfPlanes = 3;
     struct Plane* planes = malloc(sizeof(struct Plane) * numberOfPlanes);
     createPlanes(planes, idPlane, numberOfPlanes, id, longId);
@@ -160,12 +160,12 @@ int main(int argc, char** argv) {
     /* Set availabilities - [1 point] */
     
     struct Plane plane = planes[0];
-    setAvailability(&plane, true);
+    setAvailability(plane, true);
     
 
     /* Get available planes - [1 point] */
     
-    getAvailablePlanes(&planes, numberOfPlanes);
+    getAvailablePlanes(planes, numberOfPlanes);
     
 
     /* Classify planes - [2 points] */
