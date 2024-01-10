@@ -82,12 +82,23 @@ void setAvailability(struct Plane* plane, bool availability)
     plane->isAvailable = availability;
 }
 
+void getAvailablePlanes(struct Plane* planes[], int numberOfPlanes)
+{
+    for (int i = 0; i < numberOfPlanes; i++)
+    {
+        if (planes[i]->isAvailable)
+        {
+            printf(planes[i]->id);
+            printf("\n");
+        }
+    }
+}
+
 int main(int argc, char** argv) {
     printf("Hello\n");
     /* Remove comment once the code is completed for the given section to test */
 
     int id = 1;
-
 
     /* PARTIE 2 - [10 points] */
 
@@ -119,9 +130,9 @@ int main(int argc, char** argv) {
     
 
     /* Get available planes - [1 point] */
-    /*
-    getAvailablePlanes(planes, numberOfPlanes);
-    */
+    
+    getAvailablePlanes(&planes, numberOfPlanes);
+    
 
     /* Classify planes - [2 points] */
     /*
