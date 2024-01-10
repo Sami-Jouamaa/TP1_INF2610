@@ -26,23 +26,23 @@ struct Plane{
         struct Wing wings[2];
 };
 
-struct Wheel createWheels(int id)
+void createWheels(struct Wheel wheels[7], int id)
 {
-    struct Wheel wheels[7];
-    for(int i = 0; i < 7; i++)
+    for (int i = 0; i < 7; i++)
     {
-        wheels[i].id = id;
+        struct Wheel tempWheel;
+        tempWheel.id = id;
         id++;
-        if (i <= 2)
+        if(i <= 2)
         {
-            wheels[i].isRearWheel = false;
+            tempWheel.isRearWheel = false;
         }
         else
         {
-            wheels[i].isRearWheel = true;
+            tempWheel.isRearWheel = true;
         }
+        wheels[i] = tempWheel;
     }
-    return *wheels;
 }
 
 void createPlanes(struct Plane* planes[], char* id[], int numberOfPlanes, int idWheel, long idWings)
@@ -60,7 +60,8 @@ void createPlanes(struct Plane* planes[], char* id[], int numberOfPlanes, int id
         
         *planes[i] = tempPlane;
         
-        struct Wheel wheels[7] = createWheels(idWheel);
+        struct Wheel wheels[7];
+        createWheels(wheels, idWheel);
 
         struct Wing wings[2] = createWings(idWings);
 
@@ -76,6 +77,7 @@ void createPlanes(struct Plane* planes[], char* id[], int numberOfPlanes, int id
     }
 }
 
+
 int main(int argc, char** argv) {
     printf("Hello\n");
     /* Remove comment once the code is completed for the given section to test */
@@ -87,7 +89,8 @@ int main(int argc, char** argv) {
 
     /* Create wheel - [2 points] */
     
-    struct Wheel wheels[7] = createWheels(id);
+    struct Wheel wheels[7];
+    createWheels(wheels, id);
 
     /* Create wing - [4 points] */
     
