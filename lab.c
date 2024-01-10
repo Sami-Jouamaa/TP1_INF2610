@@ -76,11 +76,12 @@ struct Wing* createWings(long id) {
 }
 
 
-void createPlanes(struct Plane* planes[], char id[], int numberOfPlanes, int idWheel, long idWings)
+void createPlanes(struct Plane planes[], char id[], int numberOfPlanes, int idWheel, long idWings)
 {
     for (int i = 0; i < numberOfPlanes; i++)
     {
         struct Plane tempPlane;
+
         for (int j = 0; j < 10; j++)
         {
             tempPlane.id[j] = id[j];
@@ -89,21 +90,21 @@ void createPlanes(struct Plane* planes[], char id[], int numberOfPlanes, int idW
 
         tempPlane.isAvailable = true;
         
-        *planes[i] = tempPlane;
+        planes[i] = tempPlane;
         
         struct Wheel wheels[7];
         createWheels(wheels, idWheel);
 
-        struct Wing wings[2] = createWings(idWings);
+        struct Wing* wings = createWings(idWings);
 
         for (int t = 0; t < 7; t++)
         {
-            planes[i]->wheels[t] = wheels[t];
+            planes[i].wheels[t] = wheels[t];
         }
 
         for (int g = 0; g < 2; g++)
         {
-            planes[i]->wings[g] = wings[g];
+            planes[i].wings[g] = wings[g];
         }
     }
 }
@@ -122,26 +123,28 @@ void getAvailablePlanes(struct Plane* planes[], int numberOfPlanes)
             printf(planes[i]->id);
             printf("\n");
         }
+        else
+        {
+            continue;
+        }
     }
 }
 
 int main(int argc, char** argv) {
     printf("Hello\n");
     /* Remove comment once the code is completed for the given section to test */
-
     int id = 1;
 
     /* PARTIE 2 - [10 points] */
 
     /* Create wheel - [2 points] */
-    
     struct Wheel wheels[7];
     createWheels(wheels, id);
-
+    
     /* Create wing - [4 points] */
     
     long longId = 1;
-    //struct Wing wings[2] = createWings(longId);
+    struct Wing* wings = createWings(longId);
     
 
     /* Create plane - [4 points] */
@@ -149,7 +152,7 @@ int main(int argc, char** argv) {
     char idPlane[10] = {};
     int numberOfPlanes = 3;
     struct Plane* planes = malloc(sizeof(struct Plane) * numberOfPlanes);
-    createPlanes(&planes, idPlane, numberOfPlanes, id, longId);
+    createPlanes(planes, idPlane, numberOfPlanes, id, longId);
     
 
     /* PARTIE 3 - [6 points] */
