@@ -45,6 +45,37 @@ void createWheels(struct Wheel wheels[7], int id)
     }
 }
 
+
+
+void populateWingAttributes( struct Wing wing, int id ){
+    int mod = 0;
+    int num = id;
+    int idx = 8;
+    int* arr = (int*) malloc(9 * sizeof(int));
+
+
+    while(idx >= 0) {
+        mod = num % 10; 
+        arr[idx] = mod;
+        idx--;
+        num = num / 10;    
+    }
+
+    for (int i = 0; i < 9; i++) { 
+        wing.id[i] = arr[i]; 
+    } 
+}
+
+struct Wing* createWings(long id) {
+    struct Wing* wings = (struct Wing*) malloc(2 * sizeof(struct Wing));
+
+    populateWingAttributes(wings[0], id);
+    populateWingAttributes(wings[1], id+1);
+
+    return wings;
+}
+
+
 void createPlanes(struct Plane* planes[], char id[], int numberOfPlanes, int idWheel, long idWings)
 {
     for (int i = 0; i < numberOfPlanes; i++)
