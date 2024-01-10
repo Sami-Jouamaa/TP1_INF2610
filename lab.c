@@ -22,8 +22,8 @@ struct Plane{
         char idPlane[10];
         char planeType[10];
         bool isAvailable;
-        Wheel wheels[7];
-        Wings wings[2];
+        struct Wheel wheels[7];
+        struct Wing wings[2];
 };
 
 int main(int argc, char** argv) {
