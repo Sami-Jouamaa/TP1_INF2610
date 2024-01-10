@@ -45,14 +45,14 @@ void createWheels(struct Wheel wheels[7], int id)
     }
 }
 
-void createPlanes(struct Plane* planes[], char* id[], int numberOfPlanes, int idWheel, long idWings)
+void createPlanes(struct Plane* planes[], char id[], int numberOfPlanes, int idWheel, long idWings)
 {
     for (int i = 0; i < numberOfPlanes; i++)
     {
         struct Plane tempPlane;
         for (int j = 0; j < 10; j++)
         {
-            tempPlane.id[j] = *id[j];
+            tempPlane.id[j] = id[j];
             tempPlane.planeType[j] = *" ";
         }
 
@@ -77,6 +77,10 @@ void createPlanes(struct Plane* planes[], char* id[], int numberOfPlanes, int id
     }
 }
 
+void setAvailability(struct Plane* plane, bool availability)
+{
+    plane->isAvailable = availability;
+}
 
 int main(int argc, char** argv) {
     printf("Hello\n");
@@ -103,16 +107,16 @@ int main(int argc, char** argv) {
     char idPlane[10] = {};
     int numberOfPlanes = 3;
     struct Plane* planes = malloc(sizeof(struct Plane) * numberOfPlanes);
-    createPlanes(planes, *idPlane, numberOfPlanes, id, longId);
+    createPlanes(&planes, idPlane, numberOfPlanes, id, longId);
     
 
     /* PARTIE 3 - [6 points] */
 
     /* Set availabilities - [1 point] */
-    /*
-    Plane plane = planes[0];
-    setAvailability(plane, true);
-    */
+    
+    struct Plane plane = planes[0];
+    setAvailability(&plane, true);
+    
 
     /* Get available planes - [1 point] */
     /*
