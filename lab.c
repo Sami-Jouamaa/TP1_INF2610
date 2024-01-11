@@ -26,7 +26,7 @@ struct Plane{
         struct Wing wings[2];
 };
 
-void createWheels(struct Wheel wheels[7], int id)
+void createWheels(struct Wheel* wheels, int id)
 {
     for (int i = 0; i < 7; i++)
     {
@@ -47,7 +47,7 @@ void createWheels(struct Wheel wheels[7], int id)
 
 
 
-void populateWingAttributes( struct Wing wing, int id ){
+void populateWingAttributes( struct Wing* wing, int id ){
     int mod = 0;
     int num = id;
     int idx = 8;
@@ -62,15 +62,15 @@ void populateWingAttributes( struct Wing wing, int id ){
     }
 
     for (int i = 0; i < 9; i++) { 
-        wing.id[i] = arr[i]; 
+        wing->id[i] = arr[i]; 
     } 
 }
 
 struct Wing* createWings(long id) {
     struct Wing* wings = (struct Wing*) malloc(2 * sizeof(struct Wing));
 
-    populateWingAttributes(wings[0], id);
-    populateWingAttributes(wings[1], id+1);
+    populateWingAttributes(&wings[0], id);
+    populateWingAttributes(&wings[1], id+1);
 
     return wings;
 }
@@ -109,18 +109,18 @@ void createPlanes(struct Plane planes[], char id[], int numberOfPlanes, int idWh
     }
 }
 
-void setAvailability(struct Plane plane, bool availability)
+void setAvailability(struct Plane* plane, bool availability)
 {
-    plane.isAvailable = availability;
+    plane->isAvailable = availability;
 }
 
-void getAvailablePlanes(struct Plane planes[], int numberOfPlanes)
+void getAvailablePlanes(struct Plane* planes, int numberOfPlanes)
 {
     for (int i = 0; i < numberOfPlanes; i++)
     {
         if (planes[i].isAvailable)
         {
-            printf("%s", planes[i].id);
+            printf("%d", planes[i].id[1]);
             printf("\n");
         }
         else
@@ -160,7 +160,7 @@ int main(int argc, char** argv) {
     /* Set availabilities - [1 point] */
     
     struct Plane plane = planes[0];
-    setAvailability(plane, true);
+    setAvailability(planes, true);
     
 
     /* Get available planes - [1 point] */
