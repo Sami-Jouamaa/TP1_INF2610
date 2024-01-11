@@ -138,8 +138,14 @@ void setPlaneType(struct Plane* plane) {
     char large[5] = "Large";
 
     int identifier = 0;
+    int idIntArr[9] = {};
+
     for (int i = 0; i < 9; i++) {
-        identifier = identifier * 10 + plane->wings[0].id[i];
+        idIntArr[i] = plane->id[i] - '0';
+    }
+
+    for (int i = 0; i < 9; i++) {
+        identifier = identifier * 10 + idIntArr[i];
     }
 
     // printf("OK");
