@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 #include <stdio.h> 
 #include <stdbool.h>
+#include <string.h>
 
 struct Wheel{
     int id;
@@ -120,7 +121,7 @@ void getAvailablePlanes(struct Plane* planes, int numberOfPlanes)
     {
         if (planes[i].isAvailable)
         {
-            printf("%d", planes[i].id[1]);
+            printf("%d", planes[i].id[9]);
             printf("\n");
         }
         else
@@ -130,6 +131,61 @@ void getAvailablePlanes(struct Plane* planes, int numberOfPlanes)
     }
 }
 
+void setPlaneType(struct Plane* plane) {
+
+    char small[5] = "Small";
+    char medium[6] = "Medium";
+    char large[5] = "Large";
+
+    int identifier = 0;
+    for (int i = 0; i < 9; i++) {
+        identifier = identifier * 10 + plane->wings[0].id[i];
+    }
+
+    // printf("OK");
+    int mod = identifier % 9;
+
+    if (mod <= 2) {
+        for(int i = 0; i<5; i++) {
+            plane->planeType[i] = small[i];
+        }
+        printf("Small\n");
+
+    } else if (mod <= 6) {
+        for(int i = 0; i<6; i++) {
+            plane->planeType[i] = medium[i];
+        }
+        printf("Medium\n");
+
+    } else { 
+        for(int i = 0; i<5; i++) {
+            plane->planeType[i] = large[i];
+        }
+        printf("Large\n");
+    }
+}
+
+struct Plane* getPlanesByType(struct Plane* planes, char* type, int numberOfPlanes, int* count) {
+    
+    int matchCount = 0;
+    for (int i = 0; i < numberOfPlanes; i++) {
+        if (strcmp(planes[i].planeType, type) == 0) {
+            matchCount++;
+        }
+    }
+
+    struct Plane* matchingPlanes = malloc(sizeof(struct Plane) * matchCount);
+
+    int j = 0;
+    for (int i = 0; i < numberOfPlanes; i++) {
+        if (strcmp(planes[i].planeType, type) == 0) {
+            matchingPlanes[j++] = planes[i];
+        }
+    }
+
+    *count = matchCount;
+    return matchingPlanes;
+}
 int main(int argc, char** argv) {
     printf("Hello\n");
     /* Remove comment once the code is completed for the given section to test */
@@ -169,14 +225,15 @@ int main(int argc, char** argv) {
     
 
     /* Classify planes - [2 points] */
-    /*
-    Plane plane = planes[1];
-    setPlaneType(plane);
-    */
+    
+    // struct Plane plane = planes[1];
+    setPlaneType(&planes[1]);
+    
 
     /* Return type specific planes - [2 points] */
-    /*
+    
     char planeType[] = "Small";
-    getPlanesByType(planes, planeType,numberOfPlanes);
-    */
+    int numMatchingPlanes = 0;
+    getPlanesByType(planes, planeType, numberOfPlanes, &numMatchingPlanes);
+    
 }
